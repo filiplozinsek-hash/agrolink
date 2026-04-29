@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --soil: #2C1A0E;
+  --bark: #4A2C17;
+  --hay: #C8A96A;
+  --sage: #6B8F5E;
+  --moss: #3D5C34;
+  --cream: #F5EFE0;
+  --mist: #EDE8DC;
+  --white: #FDFAF4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--white);
+  color: var(--soil);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scroll-triggered animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.3s; }
+.fade-up-delay-4 { transition-delay: 0.4s; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--mist); }
+::-webkit-scrollbar-thumb { background: var(--hay); border-radius: 3px; }
+
+/* Range slider */
+input[type='range'] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--mist);
+  border-radius: 2px;
+  outline: none;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--moss);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+input[type='range']::-webkit-slider-thumb:hover { background: var(--hay); }
+
+/* Stripe element container */
+.stripe-element-container {
+  padding: 14px 16px;
+  border: 1.5px solid var(--mist);
+  border-radius: 12px;
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+.stripe-element-container:focus-within {
+  border-color: var(--moss);
+}
+
+/* Toast animations */
+@keyframes slideIn {
+  from { transform: translateX(110%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(110%); opacity: 0; }
+}
+.toast-enter { animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.toast-exit { animation: slideOut 0.3s ease-in forwards; }
+
+/* Hero gradient overlay */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+}
+
+/* Product image placeholder */
+.product-placeholder {
+  background: linear-gradient(135deg, var(--mist) 0%, var(--cream) 100%);
+}
+
+/* Nav blur */
+.nav-blur {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(253, 250, 244, 0.85);
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 bg-moss text-off-white font-body font-medium rounded-pill transition-all duration-250;
+    @apply hover:bg-bark hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 border-2 border-soil text-soil font-body font-medium rounded-pill transition-all duration-250;
+    @apply hover:bg-soil hover:text-off-white hover:shadow-md hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-soil font-body font-medium rounded-pill transition-all duration-250;
+    @apply hover:bg-mist active:bg-mist;
+  }
+  .card {
+    @apply bg-off-white rounded-card shadow-sm transition-all duration-250;
+    @apply hover:shadow-md hover:-translate-y-1;
+  }
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border-2 border-mist bg-white font-body text-soil;
+    @apply focus:outline-none focus:border-moss transition-colors duration-200;
+  }
+  .input-field::placeholder {
+    color: rgba(44, 26, 14, 0.35);
+  }
+  .label {
+    @apply block text-sm font-medium text-bark mb-1.5 font-body;
+  }
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-soil leading-tight;
+  }
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-pill text-xs font-medium font-body;
+  }
+}

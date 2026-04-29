@@ -1,0 +1,17 @@
+node_modules/
+client/node_modules/
+server/node_modules/
+client/dist/
+server/db/agrolink.db
+server/db/agrolink.db-shm
+server/db/agrolink.db-wal
+server/db/database.sqlite
+server/database.sqlite
+server/uploads/*
+!server/uploads/.gitkeep
+.env
+client/.env
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
