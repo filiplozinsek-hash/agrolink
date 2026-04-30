@@ -92,7 +92,7 @@ export default function CheckoutPage() {
     address: '',
     city: '',
     postalCode: '',
-    country: 'Slovenia'
+    country: 'Croatia'
   })
   const [errors, setErrors] = useState({})
 
@@ -206,7 +206,7 @@ export default function CheckoutPage() {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="label">City</label>
-                      <input {...f('city')} type="text" className={`input-field ${errors.city ? 'border-red-400' : ''}`} placeholder="Ljubljana" />
+                      <input {...f('city')} type="text" className={`input-field ${errors.city ? 'border-red-400' : ''}`} placeholder="Zagreb" />
                       {errors.city && <p className="mt-1 text-xs text-red-600 font-body">{errors.city}</p>}
                     </div>
                     <div>
@@ -218,10 +218,12 @@ export default function CheckoutPage() {
                   <div>
                     <label className="label">Country</label>
                     <select {...f('country')} className="input-field">
-                      <option>Slovenia</option>
-                      <option>Austria</option>
                       <option>Croatia</option>
+                      <option>Bosnia and Herzegovina</option>
+                      <option>Serbia</option>
+                      <option>Slovenia</option>
                       <option>Italy</option>
+                      <option>Austria</option>
                       <option>Germany</option>
                     </select>
                   </div>

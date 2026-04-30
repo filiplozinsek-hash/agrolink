@@ -17,7 +17,7 @@ const steps = [
     step: '01',
     icon: '🌱',
     title: 'Farmers list their harvest',
-    desc: 'Independent farms list seasonal products with transparent pricing. No middlemen, no markups — you see exactly who grew it and where.'
+    desc: 'Croatian farms list seasonal products with transparent pricing. No middlemen, no markups — you see exactly who grew it and where.'
   },
   {
     step: '02',
@@ -68,7 +68,7 @@ export default function LandingPage() {
               <em className="text-moss">to Soul</em>
             </h1>
             <p className="text-bark/80 text-lg font-body leading-relaxed max-w-md">
-              The premium marketplace connecting Europe's finest independent farms
+              The premium marketplace connecting Croatia's finest independent farms
               directly to your table. Seasonal, traceable, and priced fairly for everyone.
             </p>
             <div className="flex flex-wrap gap-4">

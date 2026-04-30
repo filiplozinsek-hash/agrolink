@@ -20,7 +20,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [form, setForm] = useState({ name: '', address: '', city: '', postalCode: '', country: 'Slovenia' })
+  const [form, setForm] = useState({ name: '', address: '', city: '', postalCode: '', country: 'Croatia' })
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function ProfilePage() {
           address: addr.address || '',
           city: addr.city || '',
           postalCode: addr.postalCode || '',
-          country: addr.country || 'Slovenia'
+          country: addr.country || 'Croatia'
         })
       } catch {
         addToast('Failed to load profile', 'error')
@@ -150,7 +150,7 @@ export default function ProfilePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="label">City</label>
-                  <input {...f('city')} type="text" className="input-field" placeholder="Ljubljana" />
+                  <input {...f('city')} type="text" className="input-field" placeholder="Zagreb" />
                 </div>
                 <div>
                   <label className="label">Postal code</label>
@@ -160,10 +160,12 @@ export default function ProfilePage() {
               <div>
                 <label className="label">Country</label>
                 <select {...f('country')} className="input-field">
-                  <option>Slovenia</option>
-                  <option>Austria</option>
                   <option>Croatia</option>
+                  <option>Bosnia and Herzegovina</option>
+                  <option>Serbia</option>
+                  <option>Slovenia</option>
                   <option>Italy</option>
+                  <option>Austria</option>
                   <option>Germany</option>
                 </select>
               </div>

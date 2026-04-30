@@ -12,8 +12,8 @@ export default function Footer() {
               <span className="font-display font-bold text-2xl text-hay">AgroLink</span>
             </div>
             <p className="text-cream/70 text-sm font-body leading-relaxed max-w-xs">
-              Connecting Europe's finest small farms directly with conscious consumers.
-              Every purchase supports an independent farmer and reduces the supply chain.
+              Connecting Croatia's finest small farms directly with conscious consumers.
+              Every purchase supports an independent Croatian farmer and shortens the supply chain.
             </p>
             <p className="text-cream/50 text-xs font-body mt-6">
               © {new Date().getFullYear()} AgroLink. Made with care.

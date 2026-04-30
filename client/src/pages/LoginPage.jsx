@@ -98,11 +98,8 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 pt-6 border-t border-mist">
-            <p className="text-xs font-body text-bark/60 text-center mb-3">Test accounts</p>
-            <div className="space-y-2 text-xs font-body text-bark/70">
-              <div className="flex justify-between bg-mist rounded-lg px-3 py-2">
-                <span>🌾 Farmer:</span><span>marko@novakfarm.si / password123</span>
-              </div>
+            <p className="text-xs font-body text-bark/60 text-center mb-3">Test account</p>
+            <div className="text-xs font-body text-bark/70">
               <div className="flex justify-between bg-mist rounded-lg px-3 py-2">
                 <span>🛒 Consumer:</span><span>test@consumer.com / password123</span>
               </div>

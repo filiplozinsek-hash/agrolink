@@ -33,13 +33,14 @@ router.post('/register', (req, res) => {
     const r = db.prepare(
       'INSERT INTO users (email, password_hash, name, role, delivery_address) VALUES (?, ?, ?, ?, ?)'
     ).run(email, passwordHash, name, role, deliveryAddress ? JSON.stringify(deliveryAddress) : null);
-    userId = r.lastInsertRowid;
+    // node:sqlite returns lastInsertRowid as BigInt — convert to Number so jwt.sign can serialize it
+    userId = Number(r.lastInsertRowid);
 
     if (role === 'farmer') {
       const fr = db.prepare(
         'INSERT INTO farms (user_id, farm_name, location, bio, founded_year) VALUES (?, ?, ?, ?, ?)'
       ).run(userId, farmName, location, bio || null, foundedYear ? parseInt(foundedYear) : null);
-      farmId = fr.lastInsertRowid;
+      farmId = Number(fr.lastInsertRowid);
     }
     db.exec('COMMIT');
   } catch (err) {

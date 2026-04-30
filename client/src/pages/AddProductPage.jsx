@@ -55,7 +55,7 @@ export default function AddProductPage() {
     const e = {}
     if (!form.name.trim()) e.name = 'Product name is required'
     if (!form.price || isNaN(form.price) || parseFloat(form.price) <= 0) e.price = 'Enter a valid price'
-    if (!form.stock || isNaN(form.stock) || parseInt(form.stock) < 0) e.stock = 'Enter a valid stock quantity'
+    if (form.stock === '' || isNaN(form.stock) || parseInt(form.stock) < 0) e.stock = 'Enter a valid stock quantity'
     if (!form.category) e.category = 'Category is required'
     return e
   }

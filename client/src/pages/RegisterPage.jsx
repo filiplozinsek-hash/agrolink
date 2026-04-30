@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const [form, setForm] = useState({
     name: '', email: '', password: '', confirmPassword: '',
     farmName: '', location: '', bio: '', foundedYear: '',
-    deliveryName: '', deliveryAddress: '', deliveryCity: '', deliveryPostal: '', deliveryCountry: 'Slovenia'
+    deliveryName: '', deliveryAddress: '', deliveryCity: '', deliveryPostal: '', deliveryCountry: 'Croatia'
   })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
@@ -149,12 +149,12 @@ export default function RegisterPage() {
                 </div>
                 <div>
                   <label className="label">Farm name</label>
-                  <input {...f('farmName')} type="text" className={`input-field ${errors.farmName ? 'border-red-400' : ''}`} placeholder="e.g. Novak Family Farm" />
+                  <input {...f('farmName')} type="text" className={`input-field ${errors.farmName ? 'border-red-400' : ''}`} placeholder="e.g. Horvat Family Farm" />
                   {err('farmName')}
                 </div>
                 <div>
                   <label className="label">Location / Region</label>
-                  <input {...f('location')} type="text" className={`input-field ${errors.location ? 'border-red-400' : ''}`} placeholder="e.g. Pomurje, Slovenia" />
+                  <input {...f('location')} type="text" className={`input-field ${errors.location ? 'border-red-400' : ''}`} placeholder="e.g. Slavonija, Croatia" />
                   {err('location')}
                 </div>
                 <div>
@@ -175,12 +175,12 @@ export default function RegisterPage() {
                 </div>
                 <div>
                   <label className="label">Street address</label>
-                  <input {...f('deliveryAddress')} type="text" className="input-field" placeholder="Slovenska cesta 1" />
+                  <input {...f('deliveryAddress')} type="text" className="input-field" placeholder="Ilica 1" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="label">City</label>
-                    <input {...f('deliveryCity')} type="text" className="input-field" placeholder="Ljubljana" />
+                    <input {...f('deliveryCity')} type="text" className="input-field" placeholder="Zagreb" />
                   </div>
                   <div>
                     <label className="label">Postal code</label>
@@ -190,10 +190,12 @@ export default function RegisterPage() {
                 <div>
                   <label className="label">Country</label>
                   <select {...f('deliveryCountry')} className="input-field">
-                    <option>Slovenia</option>
-                    <option>Austria</option>
                     <option>Croatia</option>
+                    <option>Bosnia and Herzegovina</option>
+                    <option>Serbia</option>
+                    <option>Slovenia</option>
                     <option>Italy</option>
+                    <option>Austria</option>
                     <option>Germany</option>
                   </select>
                 </div>
