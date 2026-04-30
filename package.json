@@ -11,6 +11,7 @@
     "client": "npm --prefix client run dev",
     "build": "npm --prefix server install --omit=dev && npm --prefix client install && npm --prefix client run build",
     "start": "node --no-warnings server/index.js",
+    "reseed": "node --no-warnings server/db/seed.js --force",
     "install:all": "npm install && npm --prefix server install && npm --prefix client install"
   },
   "devDependencies": {

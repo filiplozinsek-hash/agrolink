@@ -17,7 +17,7 @@ const steps = [
     step: '01',
     icon: '🌱',
     title: 'Farmers list their harvest',
-    desc: 'Independent farms across Slovenia and Austria list seasonal products with transparent pricing. No middlemen, no markups.'
+    desc: 'Independent farms list seasonal products with transparent pricing. No middlemen, no markups — you see exactly who grew it and where.'
   },
   {
     step: '02',
@@ -33,28 +33,23 @@ const steps = [
   },
 ]
 
-const categories = [
-  { emoji: '🥦', label: 'Vegetables', key: 'vegetables' },
-  { emoji: '🍎', label: 'Fruit', key: 'fruit' },
-  { emoji: '🍯', label: 'Honey', key: 'honey' },
-  { emoji: '🧀', label: 'Dairy', key: 'dairy' },
-  { emoji: '🥩', label: 'Meat', key: 'meat' },
-  { emoji: '🌿', label: 'Herbs & More', key: 'other' },
+// Static placeholder slots — replaced as real farmers join
+const PLACEHOLDER_FARMS = [
+  { id: 'p1', placeholder: true, image: '/images/localfarm1.jpg' },
+  { id: 'p2', placeholder: true, image: '/images/localfarm2.jpg' },
+  { id: 'p3', placeholder: true, image: '/images/localfarm3.jpg' },
 ]
 
 export default function LandingPage() {
   const [products, setProducts] = useState([])
-  const [farms, setFarms] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([
-      fetch('/api/products?limit=8&sort=newest').then(r => r.json()),
-      fetch('/api/farms').then(r => r.json())
-    ]).then(([prodData, farmData]) => {
-      setProducts(prodData.products || [])
-      setFarms(farmData.slice(0, 3))
-    }).catch(console.error).finally(() => setLoading(false))
+    fetch('/api/products?limit=8&sort=newest')
+      .then(r => r.json())
+      .then(data => setProducts(data.products || []))
+      .catch(console.error)
+      .finally(() => setLoading(false))
   }, [])
 
   return (
@@ -62,7 +57,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="hero-gradient min-h-[92vh] flex items-center overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
-          {/* Left */}
+          {/* Left: copy */}
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-moss/10 rounded-pill border border-moss/20">
               <span className="text-sm font-body font-medium text-moss">🌿 Farm-direct marketplace</span>
@@ -73,7 +68,7 @@ export default function LandingPage() {
               <em className="text-moss">to Soul</em>
             </h1>
             <p className="text-bark/80 text-lg font-body leading-relaxed max-w-md">
-              The premium marketplace connecting Slovenia and Austria's finest independent farms
+              The premium marketplace connecting Europe's finest independent farms
               directly to your table. Seasonal, traceable, and priced fairly for everyone.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -85,26 +80,23 @@ export default function LandingPage() {
               </Link>
             </div>
             <p className="text-sm font-body text-bark/50">
-              Join 240+ farms already selling on AgroLink
+              Now accepting applications from local farms
             </p>
           </div>
 
-          {/* Right: category grid */}
-          <div className="grid grid-cols-3 gap-3">
-            {categories.map((cat, i) => (
-              <Link
-                key={cat.key}
-                to={`/market?category=${cat.key}`}
-                className={`group flex flex-col items-center justify-center p-5 rounded-2xl border-2 border-mist bg-white hover:border-moss hover:shadow-lg hover:-translate-y-1 transition-all duration-250 cursor-pointer ${i === 0 ? 'col-span-1 row-span-1' : ''}`}
-              >
-                <span className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-250">{cat.emoji}</span>
-                <span className="text-xs font-medium font-body text-bark group-hover:text-moss transition-colors duration-250 text-center">{cat.label}</span>
-              </Link>
-            ))}
+          {/* Right: hero photo */}
+          <div className="relative rounded-card overflow-hidden shadow-2xl hidden lg:block" style={{ aspectRatio: '4/3' }}>
+            <img
+              src="/images/alhero.jpg"
+              alt="Fresh produce from local farms"
+              className="w-full h-full object-cover"
+            />
+            {/* Subtle dark gradient at bottom for polish */}
+            <div className="absolute inset-0 bg-gradient-to-t from-soil/30 via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
 
-        {/* Decorative element */}
+        {/* Fade-to-background at the bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-off-white to-transparent pointer-events-none" />
       </section>
 
@@ -145,7 +137,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Featured Farmers */}
+      {/* Featured Farms — placeholder slots until real farmers join */}
       <section className="py-16 px-6 bg-cream">
         <div className="max-w-7xl mx-auto">
           <FadeUp className="flex items-end justify-between mb-10">
@@ -153,12 +145,12 @@ export default function LandingPage() {
               <p className="text-moss font-body font-medium mb-2 tracking-wider uppercase text-sm">Meet the growers</p>
               <h2 className="section-title">Featured Farms</h2>
             </div>
-            <Link to="/market" className="hidden sm:inline-flex btn-ghost text-sm">
-              All farms →
+            <Link to="/register" className="hidden sm:inline-flex btn-ghost text-sm">
+              Join as farmer →
             </Link>
           </FadeUp>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {farms.map((farm, i) => (
+            {PLACEHOLDER_FARMS.map((farm, i) => (
               <FadeUp key={farm.id} delay={i + 1}>
                 <FarmerCard farm={farm} />
               </FadeUp>
@@ -179,16 +171,43 @@ export default function LandingPage() {
               View all →
             </Link>
           </FadeUp>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-            {loading
-              ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
-              : products.map(product => (
-                  <FadeUp key={product.id}>
-                    <ProductCard product={product} />
-                  </FadeUp>
-                ))
-            }
-          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
+            </div>
+          ) : products.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {products.map(product => (
+                <FadeUp key={product.id}>
+                  <ProductCard product={product} />
+                </FadeUp>
+              ))}
+            </div>
+          ) : (
+            <FadeUp>
+              <div className="py-20 text-center border-2 border-dashed border-mist rounded-card">
+                <img
+                  src="/images/alhero.jpg"
+                  alt=""
+                  className="w-24 h-24 object-cover rounded-full mx-auto mb-6 opacity-60"
+                />
+                <h3 className="font-display text-2xl text-soil mb-2">Farmers coming soon</h3>
+                <p className="text-bark/60 font-body text-sm max-w-sm mx-auto mb-8">
+                  We're onboarding our first farms. Be the first to list your harvest
+                  or get notified when seasonal products go live.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Link to="/register" className="btn-primary">
+                    🌾 Join as a Farmer
+                  </Link>
+                  <Link to="/market" className="btn-secondary">
+                    Browse Market
+                  </Link>
+                </div>
+              </div>
+            </FadeUp>
+          )}
         </div>
       </section>
 
@@ -198,7 +217,11 @@ export default function LandingPage() {
           <FadeUp>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-moss rounded-card p-10 text-white">
-                <div className="text-4xl mb-4">🌾</div>
+                <img
+                  src="/images/localfarm1.jpg"
+                  alt=""
+                  className="w-14 h-14 rounded-full object-cover mb-4 opacity-80"
+                />
                 <h3 className="font-display text-2xl font-semibold mb-3">Sell your harvest</h3>
                 <p className="text-white/70 font-body text-sm leading-relaxed mb-6">
                   List your products in minutes. Set your own prices. Keep 80% of every sale.
@@ -208,16 +231,25 @@ export default function LandingPage() {
                   Start selling →
                 </Link>
               </div>
-              <div className="bg-white rounded-card p-10 border border-mist">
-                <div className="text-4xl mb-4">🛒</div>
-                <h3 className="font-display text-2xl font-semibold text-soil mb-3">Buy direct from farms</h3>
-                <p className="text-bark/70 font-body text-sm leading-relaxed mb-6">
-                  No supermarket markups. Seasonal produce at fair prices. Know exactly where
-                  your food comes from and who grew it.
-                </p>
-                <Link to="/market" className="btn-primary">
-                  Shop the market →
-                </Link>
+              <div className="bg-white rounded-card overflow-hidden border border-mist flex flex-col">
+                <div className="relative h-32 overflow-hidden">
+                  <img
+                    src="/images/alhero.jpg"
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-soil/20" />
+                </div>
+                <div className="p-8 flex-1">
+                  <h3 className="font-display text-2xl font-semibold text-soil mb-3">Buy direct from farms</h3>
+                  <p className="text-bark/70 font-body text-sm leading-relaxed mb-6">
+                    No supermarket markups. Seasonal produce at fair prices. Know exactly where
+                    your food comes from and who grew it.
+                  </p>
+                  <Link to="/market" className="btn-primary">
+                    Shop the market →
+                  </Link>
+                </div>
               </div>
             </div>
           </FadeUp>

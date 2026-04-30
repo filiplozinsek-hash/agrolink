@@ -11,10 +11,14 @@ const categoryEmoji = {
   other: '🌿'
 }
 
+// Real photos for categories that have them
+const categoryFallbackImage = {
+  honey: '/images/honey.jpg',
+  dairy: '/images/cheese.jpg',
+}
+
 const categoryColors = {
   vegetables: 'from-sage/20 to-moss/10',
-  dairy: 'from-hay/20 to-cream',
-  honey: 'from-hay/30 to-hay/10',
   meat: 'from-red-100 to-red-50',
   fruit: 'from-orange-100 to-yellow-50',
   other: 'from-sage/10 to-cream'
@@ -32,14 +36,16 @@ export default function ProductCard({ product }) {
     addToast(`${product.name} added to cart 🛍️`)
   }
 
+  const fallbackImage = categoryFallbackImage[product.category]
+
   return (
     <Link to={`/product/${product.id}`} className="group block">
       <div className="card overflow-hidden cursor-pointer">
         {/* Image */}
         <div className="aspect-square relative overflow-hidden">
-          {product.image_path ? (
+          {product.image_path || fallbackImage ? (
             <img
-              src={product.image_path}
+              src={product.image_path || fallbackImage}
               alt={product.name}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
@@ -49,7 +55,8 @@ export default function ProductCard({ product }) {
               <span className="text-5xl">{categoryEmoji[product.category]}</span>
             </div>
           )}
-          {/* Stock badge */}
+
+          {/* Stock badges */}
           {product.stock === 0 && (
             <div className="absolute inset-0 bg-soil/40 flex items-center justify-center">
               <span className="badge bg-soil/80 text-cream">Out of stock</span>
